@@ -1,7 +1,7 @@
 export class Favoris{
-      constructor(id,user,produit){
-   this.id = id;
+      constructor(user,produit,id){
    this.user = user;
    this.produit = produit;
+   this.id = id;
   }
 }

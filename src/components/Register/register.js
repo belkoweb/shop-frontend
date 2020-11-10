@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { User } from '../../models/User';
+import UserService from '../../services/user.service';
 import './register.css';
 class Register extends Component {
    constructor(props){
@@ -26,6 +27,17 @@ class Register extends Component {
       if(!(user.password && user.nom && user.login && user.prenom && user.password && user.email)) return;
       this.setState({loading:true});
       
+      UserService.register(user).then(data=>{
+        this.props.history.push("/login");
+        console.log(data);
+      }).catch(e=>{
+        if(e.response.status == 409) {
+          this.setState({errorMessage:"Login non dosponible",loading:false});
+        }else{
+          this.setState({errorMessage:"Erreur inattendue...",loading:false})
+        }
+        console.log(e);
+      })
     }
     render() {
         const { user, submitted, loading, errorMessage } = this.state;
@@ -61,7 +73,7 @@ class Register extends Component {
               }
               </div>
                  <div className={'form-group' + (submitted && user.email ? 'has-error': '')}>
-              <label htmlFor="username">Login</label>
+              <label htmlFor="email">Email</label>
           <input type="email" className="form-control" name="email" value={user.email} onChange={(e)=>this.handleChange(e)}/>
               {submitted && !user.email &&
                 <div className="alert alert-danger" role="alert">email est obligatoire.</div>

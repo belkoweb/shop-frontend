@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {BehaviorSubject} from 'rxjs';
 
-const API_URL = 'http://localhost:8080/api/user/';
+const API_URL = 'http://localhost:8080/shop-api/user/';
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
 class UserService {
@@ -17,9 +17,8 @@ class UserService {
   login(user) {
     //btoa: Basic64 encryption
     const headers = {
-      authorization: 'Basic ' + btoa(user.username + ':' + user.password)
+      authorization: 'Basic ' + btoa(user.login + ':' + user.password)
     };
-
     return axios.get(API_URL + 'login', {headers: headers})
           .then(response => {
             localStorage.setItem('currentUser', JSON.stringify(response.data));
@@ -36,7 +35,7 @@ class UserService {
   }
 
   register(user) {
-    return axios.post(API_URL + 'registration', JSON.stringify(user),
+    return axios.post(API_URL + 'register', JSON.stringify(user),
   {headers: {"Content-Type":"application/json; charset=UTF-8"}});
   }
 

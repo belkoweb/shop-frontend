@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { User } from '../../models/User';
+import UserService from '../../services/user.service';
 import './login.css';
+
 class Login extends Component {
   constructor(props){
     super(props);
     this.state= {
-   user: new User(1,"yassir","acaf","yassirox","yassirok@gmail.com","1234","zzzz"),
+   user: new User("","","","",""),
           submitted: false,
           loading: false,
           errorMessage: ''
@@ -21,9 +23,16 @@ class Login extends Component {
  e.preventDefault();
       this.setState({submitted:true});
       const user = this.state.user;
-      console.log(user);
       if(!(user.password && user.login)) return;
       this.setState({loading:true});
+      UserService.login(user).then(
+        data=>{
+          this.props.history.push("/accueil");
+        }
+      ).catch(e=>{
+        console.log(e);
+       this.setState({errorMessage:"Login ou mot de passe incorrect"});
+      });    
       }
     render() {
           const { user, submitted, loading, errorMessage } = this.state;
@@ -39,7 +48,7 @@ class Login extends Component {
             <form name="form" onSubmit={(e) => this.handleLogin(e)}>
                 <div className={'form-group' + (submitted && !user.login ? ' has-error' : '')}>
                     <label htmlFor="username">Login</label>
-                    <input type="text" className="form-control" name="username" value={user.login} onChange={(e) => this.handleChange(e)} />
+                    <input type="text" className="form-control" name="login" value={user.login} onChange={(e) => this.handleChange(e)} />
                     {submitted && !user.login &&
                         <div className="help-block">Login Obligatoire</div>
                     }
