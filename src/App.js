@@ -50,7 +50,7 @@ class  App extends React.Component {
        {this.state.currentUser && 
               <nav className="navbar navbar-expand navbar-dark bg-dark">
               <a className="navbar-brand" href="/">
-                Shop
+                Shopix
               </a>
               <div className="navbar-nav mr-auto">
                 <Link to="/accueil" className={currentLocation == '/accueil' ? 'nav-item nav-link active': 'nav-item nav-link'}><FontAwesomeIcon icon={faHome}/> Accueil</Link>
@@ -63,11 +63,11 @@ class  App extends React.Component {
             </nav>}
             {!this.state.currentUser &&
                 <nav className="navbar navbar-expand navbar-dark bg-dark">
-              <a className="navbar-brand" href="/">
-                Shop
+                 <a className="navbar-brand" href="/">
+              Shopix
               </a>
               <div className="navbar-nav mr-auto">
-                <Link to="/accueil" className={currentLocation == '/accueil' ? 'nav-item nav-link active': 'nav-item nav-link'}><FontAwesomeIcon icon={faHome}/> Accueil</Link>
+                <Link to="/accueil" className={currentLocation == '/home' ? 'nav-item nav-link active': 'nav-item nav-link'}><FontAwesomeIcon icon={faHome}/> Accueil</Link>
               </div>
               <div className="navbar-nav ml-auto">
                 <Link to="/register" className={currentLocation == '/register' ? 'nav-item nav-link active': 'nav-item nav-link'}><FontAwesomeIcon icon={faUserPlus}/> S'inscrire</Link>
@@ -85,6 +85,11 @@ class  App extends React.Component {
             </Switch>
           </div>
 </div>
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright 2020 &copy; Shopix</p>
+    </div>
+  </footer>
      </Router>
   );
   }
