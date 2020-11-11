@@ -8,14 +8,18 @@ class Home extends Component {
 
     constructor(props){
     super(props);
+    console.log(props.selectedElement);
     this.state= {
         produits : [],
         errorMessage : '',
         infoMessage : '',
         empty:false,
-        currentUser : new User()
+        currentUser : new User(),
     };
     
+      }
+      handleData = ()=>{
+         console.log(this.props);
       }
         addToFavoris = produit =>{
           this.setState({errorMessage:""}); 
@@ -34,12 +38,25 @@ class Home extends Component {
           })
         }
       componentDidMount = ()=>{
-          userService.currentUser._subscribe(data=>{
+        userService.currentUser._subscribe(data=>{
               this.setState({currentUser:data});
           });
           this.setState({loading:true});
         ProduitService.findAllProducts().then(produits=>{
-          if(produits.length == 0){
+             ProduitService.currencyChange().then(data=>{
+               if(this.props.selectedElement === "EUR"){
+                 this.setState({rate:1});
+               }else{
+               for (let [key, value] of Object.entries(data.data.rates)) {
+                 if(key === this.props.selectedElement){
+                   this.setState({rate:value});
+                 }
+}
+               }
+  
+                 this.setState({currencyChange:data.data.rates});
+             })
+           if(produits.length == 0){
             this.setState({empty:true});
           }
             this.setState({produits:produits.data});
@@ -103,7 +120,7 @@ class Home extends Component {
                 <h4 class="card-title">
                   <a href="#">{produit.libelle}</a>
                 </h4>
-                <h5>{produit.prix} €</h5>
+              <h5>{(produit.prix * this.state.rate).toFixed(2)} {this.props.selectedElement}</h5>
               <p class="card-text mb-5">{produit.description}</p>
               </div>
             <button type="button" class="btn btn-secondary shadow w-100" onClick={()=>this.addToFavoris(produit)}>Ajouter aux favoris</button>

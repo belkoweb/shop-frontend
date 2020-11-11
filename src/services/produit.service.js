@@ -17,6 +17,9 @@ saveFavoris(favoris) {
    deleteFavoris(favoris){
         return axios.post(API_URL + 'favoris/delete', JSON.stringify(favoris),
   {headers: {"Content-Type":"application/json; charset=UTF-8"}});
+  } 
+  currencyChange(element){
+    return axios.get("https://api.exchangeratesapi.io/latest");
   }
   }
 export default new ProduitService();
