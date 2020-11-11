@@ -61,7 +61,7 @@ class Login extends Component {
                     }
                 </div>
                 <div className="form-group">
-                    <button className="btn btn-lg btn-primary btn-block  btn-signin form-submit-button" disabled={loading}>Connexion</button>
+                    <button className="btn btn-lg btn-primary btn-block  btn-signin form-submit-button" >Connexion</button>
                 </div>
             </form>
             </div>

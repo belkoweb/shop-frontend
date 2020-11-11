@@ -58,13 +58,13 @@ class Home extends Component {
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/1200x350" alt="First slide"/>
+              <img class="d-block img-fluid" src="images/slide1.jpg" alt="First slide"/>
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/1200x350" alt="Second slide"/>
+              <img class="d-block img-fluid" src="images/slide2.jpg" alt="Second slide"/>
             </div>
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/1200x350" alt="Third slide"/>
+              <img class="d-block img-fluid" src="images/slide3.jpg" alt="Third slide"/>
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -96,23 +96,21 @@ class Home extends Component {
          {this.state.empty ? <div class="text-center"><h1 >Aucun Produit trouvé</h1></div> :
         <div class="row">
               {produits.map((produit) =>
-                       <div class="col-lg-4 col-md-6 mb-2">
+                       <div class="col-lg-4 col-md-6">
             <div class="card h-75">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
+              <a href="#"><img class="card-img-top" src={produit.image} alt=""/></a>
               <div class="card-body mb-5">
                 <h4 class="card-title">
                   <a href="#">{produit.libelle}</a>
                 </h4>
-                <h5>{produit.prix} DHS</h5>
-              <p class="card-text">{produit.description}</p>
+                <h5>{produit.prix} €</h5>
+              <p class="card-text mb-5">{produit.description}</p>
               </div>
             <button type="button" class="btn btn-secondary shadow w-100" onClick={()=>this.addToFavoris(produit)}>Ajouter aux favoris</button>
             </div>
           </div>
             )
             }
-
- 
           </div> }
       </div>
         )
